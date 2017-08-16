@@ -507,19 +507,18 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
 
             for(let i = 0; i < $scope.episodes.length; i++){
                 var date = new Date($scope.episodes[i].firstAired);
+                if(date.getTime() > Date.now())
                     if($scope.isSubscribed){
                     $ionicPlatform.ready(function () {
 
                         $cordovaLocalNotification.schedule({
                             id: 1,
-                            title: "Show starts in " + date,
+                            title: "Show airs on " + date,
                             text: $scope.show.seriesName + ": " + $scope.episodes[i].episodeName,
-                            at: date.setHours(date.getHours() - 2)
+                            at: new Date(date.getTime() - 3600*1000)
                         }).then(function () {
-                            console.log('Removed from favorites '+$scope.show.seriesName);
                         },
                         function () {
-                            console.log('Failed to remove from Favorites ');
                         });
                     });    
                 }
