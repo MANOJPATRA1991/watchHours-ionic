@@ -37,7 +37,7 @@ posterRouter.route('/:seriesId')
 posterRouter.route('/')
     .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         // the tmdb api key for my account
-        var apiKey = 'TVDB_API_KEY';
+        var apiKey = '5BB799C77561B167';
         
         // create a new TVDB instance
         var tvdb = new TVDB(apiKey);

@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 
 var User = require('../models/users');
 var Verify = require('./verify');
-var agenda = require('agenda')({ db: { address: 'mongodb://MLABS_USER_ID:MLABS_USER_PASSWORD@ds145138.mlab.com:45138/watchours' } });
+var agenda = require('agenda')({ db: { address: 'mongodb://MANOJ_PATRA:MAN#1991@ds145138.mlab.com:45138/watchours' } });
 var sugar = require('sugar');
 var nodemailer = require('nodemailer');
 
