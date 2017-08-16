@@ -45,7 +45,7 @@ episodeRouter.route('/:seriesId')
 episodeRouter.route('/')
     .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, (req, res, next) => {
         // the tmdb api key for my account
-        const apiKey = '5BB799C77561B167';
+        const apiKey = 'TVDB_API_KEY';
         
         // create a new TVDB instance
         const tvdb = new TVDB(apiKey);
@@ -105,7 +105,7 @@ episodeRouter.route('/')
 episodeRouter.route('/')
     .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, (req, res, next) => {
         // the tmdb api key for my account
-        const apiKey = '5BB799C77561B167';
+        const apiKey = 'TVDB_API_KEY';
         
         // create a new TVDB instance
         const tvdb = new TVDB(apiKey);

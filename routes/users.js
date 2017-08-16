@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 
 var User = require('../models/users');
 var Verify = require('./verify');
-var agenda = require('agenda')({ db: { address: 'mongodb://MANOJ_PATRA:MAN#1991@ds145138.mlab.com:45138/watchours' } });
+var agenda = require('agenda')({ db: { address: 'mongodb://MLABS_USER_ID:MLABS_USER_PASSWORD@ds145138.mlab.com:45138/watchours' } });
 var sugar = require('sugar');
 var nodemailer = require('nodemailer');
 
@@ -47,7 +47,7 @@ router.post('/register', function(req, res){
         agenda.define('verify user email', {concurrency: 1}, function(job, done){
           var transporter = nodemailer.createTransport({
               service: 'SendGrid',
-              auth: { user: 'MANOJPATRA', pass: 'MAN#1991' }
+              auth: { user: 'SENDGRID_USER_ID', pass: 'SENDGRID_PASSWORD' }
             });
 
             var mailOptions = {

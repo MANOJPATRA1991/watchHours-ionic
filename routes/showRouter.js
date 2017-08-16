@@ -15,7 +15,7 @@ var showRouter = express.Router();
 showRouter.use(bodyParser.json());
 var BASE_IMAGE_URL = "https://thetvdb.com/banners/";
 
-var agenda = require('agenda')({ db: { address: 'mongodb://MANOJ_PATRA:MAN#1991@ds145138.mlab.com:45138/watchours' } });
+var agenda = require('agenda')({ db: { address: 'mongodb://MLABS_USER_ID:MLABS_USER_PASSWORD@ds145138.mlab.com:45138/watchours' } });
 var sugar = require('sugar');
 var nodemailer = require('nodemailer');
 
@@ -32,7 +32,7 @@ agenda.define('send email show alert', function(job, done) {
 
     var transporter = nodemailer.createTransport({
       service: 'SendGrid',
-      auth: { user: 'MANOJPATRA', pass: 'MAN#1991' }
+      auth: { user: 'SENDGRID_USER_ID', pass: 'SENDGRID_PASSWORD' }
     });
 
     var mailOptions = {
@@ -94,7 +94,7 @@ showRouter.route('/')
 
     .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
         // the tmdb api key for my account
-        var apiKey = '5BB799C77561B167';
+        var apiKey = 'TVDB_API_KEY';
         var maxVal = function(arr){
             return Math.max.apply(Math,arr.map(function(o){return o.ratingsInfo.average;}))
         }

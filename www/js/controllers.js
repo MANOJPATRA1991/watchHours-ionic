@@ -49,6 +49,15 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         $scope.modal.show();
     };
 
+    // For login via facebook retrieve username, token and id from url
+    if($location.search().user){
+        AuthFactory.storeCredentials({username: $location.search().user,
+                                      token: $location.search().token,
+                                      _id: $location.search()._id,
+                                      isVerified: $location.search().isVerified});
+        $rootScope.$broadcast('login:Successful');
+    }
+
     // Perform the login action when the user submits the login form
     $scope.doLogin = function () {
         console.log('Doing login', $scope.loginData);
