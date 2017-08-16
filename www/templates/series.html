@@ -1,0 +1,119 @@
+<ion-view cache-view="false" view-title="{{show.seriesName}}">
+<ion-content>
+</ion-content>
+  	<ion-tabs class="tabs-positive tabs-icon-top">
+		<ion-tab title="Information" icon-on="ion-ios-information" icon-off="ion-ios-information-outline">
+			<ion-content>
+			  	<div class="list card show-card series-card">
+				  <div class="item item-body show-img">
+				    <img src="{{show.poster}}" alt="{{show.seriesName}}">
+				  </div>
+				  <div class="item item-body">
+				  	<div class="row">
+					  	<div class="col">
+					  		<p class="episode-info"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i> <span>{{show.firstAired | date: 'MMM d, y'}}</span></p>
+				  		</div>
+				  		<div class="col">
+				  			<p class="episode-info">  <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
+				  		</div>
+				  	</div>
+				  	<div class="item item-body likes">
+				  		<div class="row">
+				  			<div class="col">
+				  				<a class="item item-icon-left" ng-class="isInFavorites ? 'balanced' : 'assertive'" ng-click="addToFavorites()">
+								    <i class="icon ion-heart"></i>
+								    Favorites
+								</a>
+								<a class="item item-icon-left" ng-class="isInWatchlist ? 'balanced' : 'assertive'" ng-click="addToWatchlist()">
+								    <i class="icon ion-bookmark"></i>
+								    Watchlist
+								</a>
+								<a class="item item-icon-left" ng-class="isSubscribed ? 'balanced' : 'assertive'" ng-click="subscribe()">
+								    <i class="icon ion-star"></i>
+								    Subscribe
+								</a>
+				  			</div>
+				  		</div>
+				  	</div>
+				  </div>
+				</div>
+
+				<div class="list card series-card">
+				  <div class="item item-body">
+				    <h1>{{show.seriesName}}</h1>
+				    <p class="episode-info"><b>{{show.network}}</b></p>
+				  </div>
+				  <div class="item item-body">
+				  	<p class="episode-info">Airs on <em><b>{{show.airsDayOfWeek}}s, {{show.airsTime}} GMT </b></em></p>
+				  </div>
+				  <div class="item item-body">
+				  	<div class="cap">
+			            <span ng-repeat="genre in show.genre">{{genre}}</span>
+			        </div>
+				  </div>
+				</div>
+
+				<div class="list card series-card">
+				  <div class="item item-body">
+				    <h3><b>Overview</b></h3>      
+				  </div>
+				  <div class="item item-body">
+				  	<p>{{show.overview}}</p>
+				  </div>
+				</div>
+			</ion-content>
+		</ion-tab>
+
+		<ion-tab title="Images" icon-on="ion-ios-photos" icon-off="ion-ios-photos-outline">
+			<ion-content>
+				<a class="item item-list-detail">
+					<div class="list card show-card" ng-repeat="poster in posters">
+						<div class="item item-body item-poster">
+							<img ng-src="{{poster.poster}}" ng-click="showImages($index)" class="image-list-thumb">
+						</div>
+					</div>
+				</a>
+			</ion-content>
+		</ion-tab>
+
+		<ion-tab title="Actors" icon-on="ion-ios-people" icon-off="ion-ios-people-outline">
+			<ion-content class="card-background-page">
+			  	<div class="list card show-card" ng-repeat="actor in actors">
+				  <div class="item item-body item-img">
+				    <img src="{{actor.image}}" alt="{{actor.name}}">
+                	<div class="item item-body item-detail">
+	                    <h4><b>{{actor.name}}</b></h4>
+	                    <p class="title"><em>{{actor.role}}</em></p>
+	                </div>
+				  </div>
+			  	</div>
+			</ion-content>
+		</ion-tab>
+
+		<ion-tab title="Episodes" icon-on="ion-ios-information" icon-off="ion-ios-information-outline">
+			<ion-content>
+				<div class="list show-card">
+
+				  <div class="item item-divider">
+				    Seasons
+				  </div>
+
+				  <span ng-repeat="season in seasons | orderBy: '-valueOf()'"> 	
+					  <a class="item" ui-sref="app.episode({seriesId: show._id, season: season})">
+					    {{season}}
+					  </a>
+				  </span>
+				  <div class="item item-divider">
+				    Year
+				  </div>
+
+				  <span ng-repeat="year in firstAired | orderBy:'-toString()'"> 	
+					  <a class="item" ui-sref="app.episode({seriesId: show._id, year: year})">
+					  	{{year}}
+					  </a>
+				  </span>
+				</div>
+			</ion-content>
+		</ion-tab>
+	</ion-tabs>
+</ion-view>

@@ -1,0 +1,105 @@
+<ion-view view-title="Home">
+	<ion-content></ion-content>
+	<ion-tabs class="tabs-positive tabs-icon-top">
+		<ion-tab title="Popular" icon-on="ion-ios-star" icon-off="ion-ios-star-outline">
+		    <ion-content class="card-background-page home-card">
+			  	<div class="list card" ng-repeat="show in shows | limitTo: 12">
+				  <div class="item item-body item-img">
+			    	<img src="{{show.poster}}"/>
+					<div class="item item-body item-detail">
+						<p class="title">
+			            	<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}"><b>{{show.seriesName}}</b></a>
+			          	</p>
+			          	<p class="info"><b>{{show.network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
+			          	<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{show.firstAired | date: 'yyyy'}}</span></p>
+			          	<div class="cap">
+		           	 		<span ng-repeat="genre in show.genre"><b>{{genre}}</b></span>
+			          	</div>
+					</div>
+				  </div>
+				</div>
+		  	</ion-content>
+	  	</ion-tab>
+
+		<ion-tab title="Today" icon-on="ion-ios-monitor" icon-off="ion-ios-monitor-outline">
+			<ion-content class="card-background-page home-card">
+				<div class="card" ng-cloak ng-if="todaysepisodes.length == 0">
+				  <div class="item item-text-wrap">
+				    No shows for today.
+				  </div>
+				</div>
+			  	<div class="list card" ng-repeat="episode in todaysepisodes">
+				  <div class="item item-body item-img">
+			    	<img src="{{showName(episode.seriesId).poster}}"/>
+					<div class="item item-body item-detail">
+						<p class="title">
+			            	<a class="title" ui-sref="app.series({seriesId: showName(episode.seriesId)._id})" title="{{showName(episode.seriesId).seriesName}}">{{showName(episode.seriesId).seriesName}}</a>
+			          	</p>
+			          	<p class="info"><b>{{showName(episode.seriesId).network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{showName(episode.seriesId).rating}}</span></p>
+			          	<p class="epi">S{{episode.airedSeason}}, E{{episode.airedEpisodeNumber}}</p>
+			          	<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{episode.firstAired | date: 'MMM d, y'}}</span></p>
+			          	<div class="cap">
+		           	 		<span><b>{{showName(episode.seriesId).airsDayOfWeek}}</b></span>
+                		<span><b>{{showName(episode.seriesId).airsTime}}</b></span>
+			          	</div>
+					</div>
+				  </div>
+				</div>
+		  	</ion-content>
+		</ion-tab>
+
+		<ion-tab title="Tomorrow" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
+			<ion-content class="card-background-page home-card">
+				<div class="card" ng-cloak ng-if="tomorrowsepisodes.length == 0">
+				  <div class="item item-text-wrap">
+				    No shows for tomorrow.
+				  </div>
+				</div>
+			  	<div class="list card" ng-repeat="episode in tomorrowsepisodes">
+				  <div class="item item-body item-img">
+			    	<img src="{{showName(episode.seriesId).poster}}"/>
+					<div class="item item-body item-detail">
+						<p class="title">
+			            	<a class="title" ui-sref="app.series({seriesId: showName(episode.seriesId)._id})" title="{{showName(episode.seriesId).seriesName}}">{{showName(episode.seriesId).seriesName}}</a>
+			          	</p>
+			          	<p class="info"><b>{{showName(episode.seriesId).network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{showName(episode.seriesId).rating}}</span></p>
+			          	<p class="epi">S{{episode.airedSeason}}, E{{episode.airedEpisodeNumber}}</p>
+			          	<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{episode.firstAired | date: 'MMM d, y'}}</span></p>
+			          	<div class="cap">
+		           	 		<span><b>{{showName(episode.seriesId).airsDayOfWeek}}</b></span>
+                			<span><b>{{showName(episode.seriesId).airsTime}}</b></span>
+			          	</div>
+					</div>
+				  </div>
+				</div>
+		  	</ion-content>
+		</ion-tab>
+
+		<ion-tab title="This Week" icon-on="ion-ios-fastforward" icon-off="ion-ios-fastforward-outline">
+			<ion-content class="card-background-page home-card">
+				<div class="card" ng-cloak ng-if="thisweeksepisodes.length == 0">
+				  <div class="item item-text-wrap">
+				    No shows for this week.
+				  </div>
+				</div>
+			  	<div class="list card" ng-repeat="episode in thisweeksepisodes">
+				  <div class="item item-body item-img">
+			    	<img src="{{showName(episode.seriesId).poster}}"/>
+					<div class="item item-body item-detail">
+						<p class="title">
+			            	<a class="title" ui-sref="app.series({seriesId: showName(episode.seriesId)._id})" title="{{showName(episode.seriesId).seriesName}}"><b>{{showName(episode.seriesId).seriesName}}</b></a>
+			          	</p>
+			          	<p class="info"><b>{{showName(episode.seriesId).network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{showName(episode.seriesId).rating}}</span></p>
+			          	<p class="epi">S{{episode.airedSeason}}, E{{episode.airedEpisodeNumber}}</p>
+			          	<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{episode.firstAired | date: 'MMM d, y'}}</span></p>
+			          	<div class="cap">
+		           	 		<span><b>{{showName(episode.seriesId).airsDayOfWeek}}</b></span>
+                			<span><b>{{showName(episode.seriesId).airsTime}}</b></span>
+			          	</div>
+					</div>
+				  </div>
+				</div>
+		  	</ion-content>
+		</ion-tab>
+	</ion-tabs>
+</ion-view>

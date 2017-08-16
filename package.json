@@ -10,8 +10,7 @@
     "node": "6.9.1"
   },
   "scripts": {
-    "start": "node ./bin/www",
-    "postinstall": "bower install"
+    "start": "node ./bin/www"
   },
   "keywords": [
     "watchours",
@@ -64,6 +63,9 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
+    "cordova-plugin-x-toast",
+    "de.appplant.cordova.plugin.local-notification",
+    "cordova-plugin-app-event",
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": []

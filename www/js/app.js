@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'starter.filters'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaSplashscreen, $timeout) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,9 +20,48 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       StatusBar.styleDefault();
     }
   });
+
+   $rootScope.$on('loading:show', function () {
+        $ionicLoading.show({
+            template: '<ion-spinner></ion-spinner> Loading ...'
+        })
+    });
+
+    $rootScope.$on('loading:hide', function () {
+        $ionicLoading.hide();
+    });
+
+    $rootScope.$on('$stateChangeStart', function () {
+        console.log('Loading ...');
+        $rootScope.$broadcast('loading:show');
+    });
+
+    $rootScope.$on('$stateChangeSuccess', function () {
+        console.log('done');
+        $rootScope.$broadcast('loading:hide');
+    });
+
+  Array.prototype.contains = function(v) {
+            for(var i = 0; i < this.length; i++) {
+                if(this[i] === v) return true;
+            }
+            return false;
+        };
+
+        Array.prototype.unique = function() {
+            var arr = [];
+            for(var i = 0; i < this.length; i++) {
+                if(!arr.contains(this[i])) {
+                    arr.push(this[i]);
+                }
+            }
+            return arr;
+        };
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position('bottom');
+  $ionicConfigProvider.tabs.style('standard');
   $stateProvider
 
     .state('app', {
@@ -32,11 +71,22 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'AppCtrl'
   })
 
+    .state('app.home', {
+    url: '/home',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/home.html',
+        controller: 'HomeCtrl'
+      }
+    }
+  })
+
   .state('app.search', {
     url: '/search',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/search.html',
+        controller: 'SearchCtrl'
       }
     }
   })
@@ -49,25 +99,47 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
+
+    .state('app.series', {
+      url: '/series/:seriesId',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          templateUrl: 'templates/series.html',
+          controller: 'SeriesCtrl'
         }
       }
     })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
-      }
-    }
-  });
+    .state('app.episode', {
+        url: '/series/:seriesId/episodes?season&year',
+        views: {
+            // Absolutely targets the 'content' view in the 'app' state
+            'menuContent': {
+                templateUrl: 'templates/episode.html',
+                controller: 'EpisodeCtrl'
+            }
+        }
+    })
+
+    .state('app.user', {
+        url: 'user/:id',
+        views: {
+            // Absolutely targets the 'content' view in the 'app' state
+            'menuContent': {
+                templateUrl: 'templates/user.html',
+                controller: 'UserCtrl'
+            }
+        }
+    });
+
+  // .state('app.single', {
+  //   url: '/series/:playlistId',
+  //   views: {
+  //     'menuContent': {
+  //       templateUrl: 'templates/playlist.html'
+  //     }
+  //   }
+  // });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/home');
 });

@@ -1,0 +1,41 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Register</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeRegister()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doRegister()">
+      <div class="list">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Username</span>
+          <input type="text" placeholder="Username" ng-model="loginData.username">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Email</span>
+          <input type="email" placeholder="Email" ng-model="loginData.email">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">First Name</span>
+          <input type="text" placeholder="First Name" ng-model="loginData.firstname">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Last Name</span>
+          <input type="text" placeholder="Last Name" ng-model="loginData.lastname">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Password</span>
+          <input type="password" placeholder="Password" ng-model="loginData.password">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Re-enter your password</span>
+          <input type="password" placeholder="Re-enter your password" ng-model="loginData.repeat_password">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Register</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

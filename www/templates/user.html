@@ -1,0 +1,79 @@
+<ion-view cache-view="false" view-title="{{username}}">
+	<ion-content></ion-content>
+	<ion-tabs class="tabs-positive tabs-icon-top">
+		<ion-tab title="Your Subscriptions" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
+		    <ion-content class="card-background-page home-card">
+		    	<div class="list card" ng-if="(shows | subscribers).length == 0">
+      				<div class="item item-text-wrap">
+      					<p>You don't have any subscriptions. Visit show pages to subscribe to shows.</p>
+  					</div>
+		    	</div>
+			  	<div class="list card" ng-repeat="show in shows | subscribers | limitTo: 12">
+				  <div class="item item-body item-img">
+			    	<img src="{{show.poster}}"/>
+					<div class="item item-body item-detail">
+						<p class="title">
+			            	<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}"><b>{{show.seriesName}}</b></a>
+			          	</p>
+			          	<p class="info"><b>{{show.network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
+			          	<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{show.firstAired | date: 'yyyy'}}</span></p>
+			          	<div class="cap">
+		           	 		<span ng-repeat="genre in show.genre"><b>{{genre}}</b></span>
+			          	</div>
+					</div>
+				  </div>
+				</div>
+		  	</ion-content>
+	  	</ion-tab>
+
+		<ion-tab title="Your Watchlist" icon-on="ion-ios-monitor" icon-off="ion-ios-monitor-outline">
+			<ion-content class="card-background-page home-card">
+				<div class="card" ng-if="(shows | watchList).length == 0">
+				  <div class="item item-text-wrap">
+				    You don't have any shows in your watch list. To add shows to your watch list, visit show pages.
+				  </div>
+				</div>
+			  	<div class="list card" ng-repeat="show in shows | watchList | limitTo: 12">
+				  	<div class="item item-body item-img">
+			    		<img src="{{show.poster}}"/>
+						<div class="item item-body item-detail">
+							<p class="title">
+				            	<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}"><b>{{show.seriesName}}</b></a>
+				          	</p>
+				          	<p class="info"><b>{{show.network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
+				          	<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{show.firstAired | date: 'yyyy'}}</span></p>
+				          	<div class="cap">
+			           	 		<span ng-repeat="genre in show.genre"><b>{{genre}}</b></span>
+				          	</div>
+						</div>
+			 	 	</div>
+				</div>
+		  	</ion-content>
+		</ion-tab>
+
+		<ion-tab title="Your Favorites" icon-on="ion-ios-star" icon-off="ion-ios-star-outline">
+			<ion-content class="card-background-page home-card">
+				<div class="card" ng-if="(shows | favorites).length == 0">
+				  <div class="item item-text-wrap">
+				    <p>You don't have any shows in your favorites list. To list shows as favorites, visit show pages.</p>
+				  </div>
+				</div>
+			  	<div class="list card" ng-repeat="show in shows | favorites">
+				  <div class="item item-body item-img">
+			    		<img src="{{show.poster}}"/>
+						<div class="item item-body item-detail">
+							<p class="title">
+				            	<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}"><b>{{show.seriesName}}</b></a>
+				          	</p>
+				          	<p class="info"><b>{{show.network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
+				          	<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{show.firstAired | date: 'yyyy'}}</span></p>
+				          	<div class="cap">
+			           	 		<span ng-repeat="genre in show.genre"><b>{{genre}}</b></span>
+				          	</div>
+						</div>
+			 	 	</div>
+				</div>
+		  	</ion-content>
+		</ion-tab>
+	</ion-tabs>
+</ion-view>
