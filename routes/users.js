@@ -193,7 +193,7 @@ router.route('/forgotpassword')
     agenda.define('reset user password', {concurrency: 1}, function(job, done){
       var transporter = nodemailer.createTransport({
           service: 'SendGrid',
-          auth: { user: 'MANOJPATRA', pass: 'MAN#1991' }
+          auth: { user: 'SENDGRID_USER_ID', pass: 'SENDGRID_PASSWORD' }
         });
 
         var mailOptions = {
