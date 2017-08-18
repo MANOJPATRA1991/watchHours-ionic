@@ -8,11 +8,14 @@ This is the Ionic version of the [watchours](https://watch-hours.herokuapp.com/)
 
 #### Prerequisites
 
-1.Before running this project ensure that you have installed cordova and ionic globally.
-If not, run this command `npm install cordova ionic -g`.
+1. Before running this project ensure that you have installed cordova and ionic globally. If not, run this command `npm install cordova ionic -g`.
+
 2. Replace host addresses with your computer's IP addresses specifically in these files:
+    
     1. bin/www
+    
     2. app.js
+    
     3. www/js/services.js
 
 #### How to run this project on local computer?
