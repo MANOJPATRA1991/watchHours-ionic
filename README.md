@@ -49,7 +49,7 @@ This is the Ionic version of the [watchours](https://watch-hours.herokuapp.com/)
 6. As this project is specifically built for android, I recommend running it on an Android device for best experience. However, the project can be built and run on an iOS device if you choose to do so.
 7. To build for android, `ionic build android`.
 8. To deploy to android device, `ionic run android`.
-  >NOTE: Make sure to keep the node server running while accessing the app. To stat the server, `npm start`.
+  >NOTE: Make sure to keep the node server running while accessing the app. To start the server, `npm start`.
 9. To run the project on ionic-lab, `ionic serve --lab`.
 
 ### Reference
