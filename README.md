@@ -24,13 +24,13 @@ This is the Ionic version of the [watchours](https://watch-hours.herokuapp.com/)
 2. `cd` into the folder where you cloned the project.
 3. `npm install` to install all node packages.
 4. `bower install` to install all bower packages.
-5. To install cordova plugins `cordova plugin add <plugin-name>`.
-  To get list of all cordova plugins, run `cordova plugin list` command.
-  Also here is a list of all Cordova plugins required for this project.
+5. To install cordova plugins `cordova plugin add <plugin-name>`. 
+    To get list of all cordova plugins, run `cordova plugin list` command.
+    Also here is a list of all Cordova plugins required for this project.
   
-  i. cordova-plugin-app-event 1.2.0 "Application Events"
+    1. cordova-plugin-app-event 1.2.0 "Application Events"
   
-  ii. cordova-plugin-console 1.0.5 "Console"
+    2. cordova-plugin-console 1.0.5 "Console"
   
   iii. cordova-plugin-device 1.1.4 "Device"
   
