@@ -110,6 +110,9 @@ angular.module('starter.services', ['ngResource'])
 }])
 
 
+/**
+ *  HELPER FUNCTION for home.html
+ */
 .factory('HomeServices', [function(){
         var homeServices = {};
         var TODAY = moment().startOf('day');
@@ -148,6 +151,9 @@ angular.module('starter.services', ['ngResource'])
         return homeServices;
     }])
 
+/**
+ *  This factory is used to store info of current user in local storage
+ */
 .factory('$localStorage', ['$window', function ($window) {
     return {
         store: function (key, value) {
@@ -168,7 +174,11 @@ angular.module('starter.services', ['ngResource'])
     }
 }])
 
-.factory('AuthFactory', ['$resource', '$http', '$localStorage', '$rootScope', '$window', 'baseURL', function($resource, $http, $localStorage, $rootScope, $window, baseURL){
+/**
+ *  This factory is used to authenticate user
+ */
+.factory('AuthFactory', ['$resource', '$http', '$localStorage', '$rootScope', '$window', 'baseURL',
+    function($resource, $http, $localStorage, $rootScope, $window, baseURL){
 
     var authFac = {};
     var TOKEN_KEY = 'Token';
@@ -232,6 +242,9 @@ angular.module('starter.services', ['ngResource'])
         );
     }
 
+    /**
+     *  Function to reset password
+     */
     authFac.resetPassword = function(){
         return $resource(baseURL + "/users/resetpassword", {authToken: '@authToken'}, {
             'update': {
@@ -240,6 +253,10 @@ angular.module('starter.services', ['ngResource'])
         });
     }
 
+    /**
+     * Function to login user
+     * @param{Object} loginData
+     */
     authFac.login = function(loginData) {
 
         $resource(baseURL + "/users/login")
@@ -262,12 +279,19 @@ angular.module('starter.services', ['ngResource'])
         );
     };
 
+    /**
+     * Function to logout user
+     */
     authFac.logout = function() {
         $resource(baseURL + "/users/logout").get(function(response){
         });
         destroyUserCredentials();
     };
 
+    /**
+     * Function to register user
+     * @param{Object} registerData
+     */
     authFac.register = function(registerData) {
 
         $resource(baseURL + "/users/register")
@@ -287,30 +311,51 @@ angular.module('starter.services', ['ngResource'])
         );
     };
 
+    /**
+     * Check if user is authenticated
+     */
     authFac.isAuthenticated = function() {
         return isAuthenticated;
     };
 
+    /**
+     * Get username
+     */
     authFac.getUsername = function() {
         return username;
     };
 
+    /**
+     * Check if user is verified
+     */
     authFac.isVerified = function() {
         return isVerified;
     };
 
+    /**
+     * Check if user is an admin
+     */
     authFac.isAdmin = function(){
         return admin;
     }
 
+    /**
+     * Get user id
+     */
     authFac.uid = function(){
         return _id;
     }
 
+    /**
+     * Return error if in authentication
+     */
     authFac.Error = function(){
         return error;
     }
 
+    /**
+     * Return message
+     */
     authFac.Message = function(){
         return message;
     }

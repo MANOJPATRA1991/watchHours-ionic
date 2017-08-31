@@ -1,5 +1,7 @@
 angular.module('starter.controllers', ['ngResource', 'ngCordova'])
 
+
+// The application controller
 .controller('AppCtrl', ['$scope', '$state', '$rootScope',
     'Shows', '$http', '$location', '$localStorage',
     'HomeServices', 'AuthFactory', '$ionicModal',
@@ -11,7 +13,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
     $ionicPopup, $timeout, $cordovaInAppBrowser, $ionicLoading) {
     console.log("Hello");
 
-   // Form data for the login modal
+    // Form data for the login modal
     $scope.loginData = $localStorage.getObject('userinfo','{}');
     $scope.reservation = {};
     $scope.registration = {};
@@ -46,6 +48,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         $scope.closeLogin();
     };
 
+    // Perform logout
     $scope.logout = function() {
         AuthFactory.logout();
         $rootScope.currentUser = false;
@@ -56,6 +59,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         $state.go("app.home");
     };
 
+    // Perform facebook login
     $scope.facebookLogin = function(){
         // options for inappbrowser
         var options = {
@@ -84,6 +88,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         }
     });
 
+    // Set root variables if user is authenticated
     if(AuthFactory.isAuthenticated()) {
       $rootScope.currentUser = true;
       $rootScope.username = AuthFactory.getUsername();
@@ -160,6 +165,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         $rootScope.isVerified = AuthFactory.isVerified();
     });
 
+    // On unsuccessful registration
     $rootScope.$on('registration:Unsuccessful', function(){
        var alertPopup = $ionicPopup.alert({
          title: 'Sign up Error',
@@ -246,7 +252,9 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
             });
         }
 
-        // Close the modal
+        /**
+         * Close the closeModal
+         */
         $scope.closeModal = function() {
             $scope.modal.hide();
             $scope.modal.remove();
@@ -680,46 +688,46 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         });
     }])
 
-    .controller('SearchCtrl', ['$scope', 'Shows', 'filterFilter', 'HomeServices', function($scope, Shows, filterFilter, HomeServices){
+.controller('SearchCtrl', ['$scope', 'Shows', 'filterFilter', 'HomeServices', function($scope, Shows, filterFilter, HomeServices){
+    $scope.search = {};
+    $scope.shows = [];
+
+    /**
+     * Reset filters for search
+     */
+    $scope.resetFilters = function () {
+        // needs to be a function or it won't trigger a $watch
         $scope.search = {};
-        $scope.shows = [];
+    };
 
-        /**
-         * Reset filters for search
-         */
-        $scope.resetFilters = function () {
-            // needs to be a function or it won't trigger a $watch
-            $scope.search = {};
-        };
+    // get all shows
+    Shows.query({}, function(resp){
+        // Sorts the shows based on show rating
+        temp = resp.sort(HomeServices.compare);
+        $scope.shows = temp;
+        $scope.headingTitle = 'All Shows';
+        $scope.totalItems = temp.length;
+        $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
+        $scope.resetFilters();
+    });
 
-        // get all shows
-        Shows.query({}, function(resp){
-            // Sorts the shows based on show rating
-            temp = resp.sort(HomeServices.compare);
-            $scope.shows = temp;
-            $scope.headingTitle = 'All Shows';
-            $scope.totalItems = temp.length;
-            $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
-            $scope.resetFilters();
-        });
+    /**
+     * Register a watch on the 'search' variable
+     */
+    $scope.$watch('search', function (newVal, oldVal) {
+        $scope.filtered = filterFilter($scope.shows, newVal);
+        $scope.totalItems = $scope.filtered.length;
+        $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
+        $scope.currentPage = 1;
+    }, true);
 
-        /**
-         * Register a watch on the 'search' variable
-         */
-        $scope.$watch('search', function (newVal, oldVal) {
-            $scope.filtered = filterFilter($scope.shows, newVal);
-            $scope.totalItems = $scope.filtered.length;
-            $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
-            $scope.currentPage = 1;
-        }, true);
+}])
 
-    }])
+.controller('UserCtrl', ['$scope', '$rootScope', 'Shows', 'HomeServices', function($scope, $rootScope, Shows, HomeServices){
+    $scope.shows = [];
+    Shows.query({}, function(resp) {
+        // Sort shows by rating
+        $scope.shows = resp.sort(HomeServices.compare);
+    });
 
-    .controller('UserCtrl', ['$scope', '$rootScope', 'Shows', 'HomeServices', function($scope, $rootScope, Shows, HomeServices){
-        $scope.shows = [];
-        Shows.query({}, function(resp) {
-            // Sort shows by rating
-            $scope.shows = resp.sort(HomeServices.compare);
-        });
-
-    }]);
+}]);
