@@ -32,19 +32,20 @@ This is the Ionic version of the [watchours](https://watch-hours.herokuapp.com/)
   
     2. cordova-plugin-console 1.0.5 "Console"
   
-  iii. cordova-plugin-device 1.1.4 "Device"
+    3. cordova-plugin-device 1.1.4 "Device"
   
-  iv. cordova-plugin-splashscreen 4.0.3 "Splashscreen"
+    4. cordova-plugin-splashscreen 4.0.3 "Splashscreen"
   
-  v. cordova-plugin-statusbar 2.2.1 "StatusBar"
+    5. cordova-plugin-statusbar 2.2.1 "StatusBar"
   
-  vi. cordova-plugin-whitelist 1.3.1 "Whitelist"
+    6. cordova-plugin-whitelist 1.3.1 "Whitelist"
   
-  vii. cordova-plugin-x-toast 2.6.0 "Toast"
+    7. cordova-plugin-x-toast 2.6.0 "Toast"
   
-  viii. de.appplant.cordova.plugin.local-notification 0.8.5 "LocalNotification"
+    8. de.appplant.cordova.plugin.local-notification 0.8.5 "LocalNotification"
   
-  ix. ionic-plugin-keyboard 2.2.1 "Keyboard"
+    9. ionic-plugin-keyboard 2.2.1 "Keyboard"
+
 6. As this project is specifically built for android, I recommend running it on an Android device for best experience. However, the project can be built and run on an iOS device if you choose to do so.
 7. To build for android, `ionic build android`.
 8. To deploy to android device, `ionic run android`.
