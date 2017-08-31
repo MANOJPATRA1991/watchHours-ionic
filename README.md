@@ -27,15 +27,15 @@ This is the Ionic version of the [watchours](https://watch-hours.herokuapp.com/)
 5. To install cordova plugins `cordova plugin add <plugin-name>`.
   To get list of all cordova plugins, run `cordova plugin list` command.
   Also here is a list of all Cordova plugins required for this project.
-  1. cordova-plugin-app-event 1.2.0 "Application Events"
-  2. cordova-plugin-console 1.0.5 "Console"
-  3. cordova-plugin-device 1.1.4 "Device"
-  4. cordova-plugin-splashscreen 4.0.3 "Splashscreen"
-  5. cordova-plugin-statusbar 2.2.1 "StatusBar"
-  6. cordova-plugin-whitelist 1.3.1 "Whitelist"
-  7. cordova-plugin-x-toast 2.6.0 "Toast"
-  8. de.appplant.cordova.plugin.local-notification 0.8.5 "LocalNotification"
-  9. ionic-plugin-keyboard 2.2.1 "Keyboard"
+  i. cordova-plugin-app-event 1.2.0 "Application Events"
+  ii. cordova-plugin-console 1.0.5 "Console"
+  iii. cordova-plugin-device 1.1.4 "Device"
+  iv. cordova-plugin-splashscreen 4.0.3 "Splashscreen"
+  v. cordova-plugin-statusbar 2.2.1 "StatusBar"
+  vi. cordova-plugin-whitelist 1.3.1 "Whitelist"
+  vii. cordova-plugin-x-toast 2.6.0 "Toast"
+  viii. de.appplant.cordova.plugin.local-notification 0.8.5 "LocalNotification"
+  ix. ionic-plugin-keyboard 2.2.1 "Keyboard"
 6. As this project is specifically built for android, I recommend running it on an Android device for best experience. However, the project can be built and run on an iOS device if you choose to do so.
 7. To build for android, `ionic build android`.
 8. To deploy to android device, `ionic run android`.
