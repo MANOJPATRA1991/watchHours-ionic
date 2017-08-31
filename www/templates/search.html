@@ -1,0 +1,30 @@
+<ion-view cache-view="false" view-title="Search">
+  	<ion-content class="search-card card-background-page home-card">
+
+  		<div class="list search">
+		  <div class="item item-input-inset">
+		    <label class="item-input-wrapper">
+		      <input type="text" placeholder="Search by series name" ng-model="search.seriesName">
+		    </label>
+		  </div>
+		</div>
+
+	  	<div class="list card" ng-repeat="show in filtered = shows  | filter: search | limitTo: 12">
+    		<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}">
+			  	<div class="item item-body item-img">
+			    	<img src="{{show.poster}}"/>
+					<div class="show-detail item item-body item-detail">
+						<p class="title">
+							<b>{{show.seriesName}}</b>
+			          	</p>
+			          	<p class="info"><b>{{show.network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
+			          	<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{show.firstAired | date: 'yyyy'}}</span></p>
+			          	<div class="cap">
+		           	 		<span ng-repeat="genre in show.genre"><b>{{genre}}</b></span>
+			          	</div>
+					</div>
+			  	</div>
+		  	</a>
+		</div>
+  	</ion-content>
+</ion-view>

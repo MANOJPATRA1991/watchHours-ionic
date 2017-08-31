@@ -1,0 +1,26 @@
+<ion-view view-title="Episodes">
+  <ion-content scroll="false">
+	<ion-slides options="options" slider="data.slider">
+		<ion-slide-page class="transparent-slide" ng-repeat="episode in episodes">
+		  	<ion-content>
+		  	<div class="list card ep-card series-card">
+				<div class="item item-body show-img">
+					<img class="episode-img" src="{{episode.episodeImage}}" alt="{{episode.episodeName}}">
+				</div>
+				<div class="item item-body">
+				    <h2><b>{{episode.episodeName}}</b></h2>
+			        <p><b>Season {{episode.airedSeason}}, Episode {{episode.airedEpisodeNumber}}</b></p>
+			        <p class="episode-info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>{{episode.firstAired | date: 'MMM d, y'}}</span></p>
+			        <br>
+			        <p class="episode-info"><b>Director</b><br/> <span class="creators">{{episode.director}}</span></p>
+			        <p class="episode-info"><b>Writers</b><br/> <span class="creators" ng-repeat="writer in episode.writers track by $index">{{writer}}, </span></p>
+				</div>
+				<div class="item item-body">
+					<p class="overview">{{episode.overview}}</p>
+				</div>
+			</div>
+			</ion-content>
+		</ion-slide-page>
+	</ion-slides>
+  </ion-content>
+</ion-view>
