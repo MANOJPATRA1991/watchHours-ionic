@@ -1,7 +1,7 @@
 angular.module('starter.services', ['ngResource'])
 
 /** This is the BASE URL for the application. */
-.constant("baseURL", "http://192.168.43.161:3000")
+.constant("baseURL", "https://watch-hours.herokuapp.com")
 
 /**
  *  This factory is used to perform GET request for all shows
