@@ -9,7 +9,7 @@
 		  </div>
 		</div>
 
-	  	<div class="list card" ng-repeat="show in filtered = shows  | filter: search | limitTo: 12">
+	  	<div class="search-list list card" ng-repeat="show in filtered = shows  | filter: search | limitTo: 12">
     		<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}">
 			  	<div class="item item-body item-img">
 			    	<img src="{{show.poster}}"/>

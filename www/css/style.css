@@ -5,7 +5,11 @@ body {
 }
 
 .episode-info {
-  color: mintcream;
+  color: black;
+}
+
+.item {
+  border-color: #100d0d;
 }
 
 .item-body, .item-body a{
@@ -21,7 +25,7 @@ body {
 
 .item-img img{
   margin-top: -4px;
-  height: 4 00px;
+  min-height: 200px;
   width: 100%;
   float: left;
 }
@@ -57,6 +61,12 @@ div.list.card {
 
 .photo-detail {
   margin: 0;
+}
+
+@media (max-width: 360px) {
+  .icon {
+    padding-right: 10px;
+  }
 }
 
 @media (max-width: 760px) and (orientation:landscape) {
@@ -155,6 +165,13 @@ div.list.card {
   }
 }
 
+@media screen and (max-width: 640px) and (orientation: landscape) {
+  .search-list {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
+
 @media (min-width: 767px) and (orientation: landscape) {
   .card-background-page.home-card {
     margin: 0 20px;
@@ -170,7 +187,8 @@ div.list.card {
 }
 
 .scap {
-  color: #fff;
+  color: #000;
+  font-weight: bold;
 }
 
 .cap {
@@ -178,6 +196,7 @@ div.list.card {
 }
 
 .cap span, .scap span{
+  margin: 10px;
   padding-right: 3px;
   word-wrap: normal;
   display: inline-block;
@@ -246,6 +265,9 @@ p.epi {
 }
 
 .col {
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center;
   border-right: 1px solid #ddd;
 }
 
@@ -272,9 +294,7 @@ div.button-link {
 }
 
 i.icon{
-    width:100px;
   display: block;
-  text-align: center;
 }
 
 .likes {
@@ -282,11 +302,11 @@ i.icon{
 }
 
 .series-card {
-  background: #2c3e50;
+  background: rgb(238, 225, 225);
 }
 
 .series-card h1, h3, .series-card .item-body p {
-  color: #fff;
+  color: black;
 }
 
 .image-list-thumb {
@@ -345,4 +365,8 @@ i.icon{
 
 .transparent-slide {
   background: #fff;
+}
+
+.col a {
+  border: none;
 }

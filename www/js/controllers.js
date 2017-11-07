@@ -226,7 +226,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         });
     }])
 
-.controller('SeriesCtrl', ['$scope', '$ionicModal', '$sce', '$state', '$stateParams', '$rootScope', 'Series', 'Actors', 'Episodes', 'Posters', 'Subscription', '$ionicPopup', '$timeout', '$cordovaToast', '$ionicPlatform', '$cordovaLocalNotification', function($scope, $ionicModal, $sce, $state, $stateParams, $rootScope, Series, Actors, Episodes, Posters, Subscription, $ionicPopup, $timeout, $cordovaToast, $ionicPlatform, $cordovaLocalNotification){
+.controller('SeriesCtrl', ['$scope', '$ionicModal', '$sce', '$state', '$stateParams', '$rootScope', 'Series', 'Actors', 'Episodes', 'Posters', 'Subscription', '$ionicPopup', '$timeout', '$cordovaToast', '$ionicPlatform', '$cordovaLocalNotification', 'ActorsCount', 'PostersCount', function($scope, $ionicModal, $sce, $state, $stateParams, $rootScope, Series, Actors, Episodes, Posters, Subscription, $ionicPopup, $timeout, $cordovaToast, $ionicPlatform, $cordovaLocalNotification, ActorsCount, PostersCount){
         $scope.show = {};
         $scope.episodes = [];
         $scope.seasons = [];
@@ -236,6 +236,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         $scope.isSubscribed = false;
         $scope.isInWatchlist = false;
         $scope.isInFavorites = false;
+        $scope.count = 0;
 
         $scope.showImages = function(index) {
             $scope.activeSlide = index;
@@ -261,18 +262,32 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         };
 
         // Get Actors for the series
-        Actors.query({seriesId: $stateParams.seriesId}, function(actors){
-            $scope.actors = actors;
+        // Actors.query({seriesId: $stateParams.seriesId}, function(actors){
+        //     $scope.actors = actors;
+        // });
+
+        ActorsCount.query({seriesId: $stateParams.seriesId}, function(count){
+            $scope.count = count.result / 6;
+            for (var i = 0; i < $scope.count; i++) {
+                Actors.query({seriesId: $stateParams.seriesId, skip: i}, function(actors){
+                    actors.forEach(function(element) {
+                        $scope.actors.push(element);
+                    }, this);
+                });
+            }
         });
 
-        // Get Posters for the series
-        Posters.query({seriesId: $stateParams.seriesId}, function(posters){
-            $scope.posters = posters;
-            $scope.currentPage = 1;
-            $scope.totalItems = $scope.posters.length;
-            $scope.entryLimit = 14; // items per page
-            $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
-        });
+        PostersCount.query({seriesId: $stateParams.seriesId}, function(count){
+            console.log(count.result);
+            $scope.count = count.result / 5;
+            for(var i = 0; i < $scope.count; i++) {
+                Posters.query({seriesId: $stateParams.seriesId, skip: i}, function(posters){
+                    posters.forEach(function(element) {
+                        $scope.posters.push(element);
+                    }, this);
+                });
+            }
+        }); 
 
         // Get Series details
         Series.query({ id: $stateParams.seriesId }, function(show) {

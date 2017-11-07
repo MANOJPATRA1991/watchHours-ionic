@@ -21,6 +21,9 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     }
   });
 
+  // to toggle menu bars
+  $rootScope.scrolling = false;
+
   $rootScope.$on('loading:show', function () {
       $ionicLoading.show({
           template: '<ion-spinner></ion-spinner> Loading ...'

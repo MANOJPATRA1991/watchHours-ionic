@@ -64,6 +64,21 @@ angular.module('starter.services', ['ngResource'])
 
 
 /**
+ * Get count of posters
+ */
+.factory('PostersCount', ['$cacheFactory', '$resource', 'baseURL', function($cacheFactory, $resource, baseURL){
+    // empty reference array
+    var PostersCount = $resource(baseURL + '/posters/:seriesId/count', {seriesId:'@seriesId'}, {
+        query: {
+            method: 'GET',
+            isArray: false
+        }
+    });
+    return PostersCount;
+}])
+
+
+/**
  *  This factory is used to perform GET request for actors of a particular show
  */
 .factory('Actors', ['$cacheFactory', '$resource', 'baseURL', function($cacheFactory, $resource, baseURL){
@@ -77,6 +92,19 @@ angular.module('starter.services', ['ngResource'])
     return Actors;
 }])
 
+/**
+ * Get count of actors
+ */
+.factory('ActorsCount', ['$cacheFactory', '$resource', 'baseURL', function($cacheFactory, $resource, baseURL){
+    // empty reference array
+    var ActorsCount = $resource(baseURL + '/actors/:seriesId/count', {seriesId:'@seriesId'}, {
+        query: {
+            method: 'GET',
+            isArray: false
+        }
+    });
+    return ActorsCount;
+}])
 
 /**
  *  This factory is used to perform POST request to subscribe, watchlist and favorites

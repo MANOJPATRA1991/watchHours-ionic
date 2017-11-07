@@ -17,21 +17,18 @@
 				  			<p class="episode-info">  <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
 				  		</div>
 				  	</div>
-				  	<div class="item item-body likes">
+				  	<div class="likes item item-body">
 				  		<div class="row">
 				  			<div class="col">
 				  				<a class="item item-icon-left" ng-class="isInFavorites ? 'balanced' : 'assertive'" ng-click="addToFavorites()">
 								    <i class="icon ion-heart"></i>
-								    Favorites
-								</a>
-								<a class="item item-icon-left" ng-class="isInWatchlist ? 'balanced' : 'assertive'" ng-click="addToWatchlist()">
-								    <i class="icon ion-bookmark"></i>
-								    Watchlist
-								</a>
-								<a class="item item-icon-left" ng-class="isSubscribed ? 'balanced' : 'assertive'" ng-click="subscribe()">
-								    <i class="icon ion-star"></i>
-								    Subscribe
-								</a>
+									</a>
+									<a class="item item-icon-left" ng-class="isInWatchlist ? 'balanced' : 'assertive'" ng-click="addToWatchlist()">
+											<i class="icon ion-bookmark"></i>
+									</a>
+									<a class="item item-icon-left" ng-class="isSubscribed ? 'balanced' : 'assertive'" ng-click="subscribe()">
+											<i class="icon ion-star"></i>
+									</a>
 				  			</div>
 				  		</div>
 				  	</div>
