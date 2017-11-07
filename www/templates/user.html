@@ -9,19 +9,19 @@
   					</div>
 		    	</div>
 			  	<div class="list card" ng-repeat="show in shows | subscribers | limitTo: 12">
-				  <div class="item item-body item-img">
-			    	<img src="{{show.poster}}"/>
-					<div class="item item-body item-detail">
-						<p class="title">
-			            	<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}"><b>{{show.seriesName}}</b></a>
-			          	</p>
-			          	<p class="info"><b>{{show.network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
-			          	<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{show.firstAired | date: 'yyyy'}}</span></p>
-			          	<div class="cap">
-		           	 		<span ng-repeat="genre in show.genre"><b>{{genre}}</b></span>
-			          	</div>
-					</div>
-				  </div>
+						<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}">
+							<div class="item item-body item-img">
+								<img src="{{show.poster}}"/>
+								<div class="item item-body item-detail">
+									<p class="title"><b>{{show.seriesName}}</b></p>
+									<p class="info"><b>{{show.network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
+									<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{show.firstAired | date: 'yyyy'}}</span></p>
+									<div class="cap">
+										<span ng-repeat="genre in show.genre"><b>{{genre}}</b></span>
+									</div>
+								</div>
+							</div>
+						</a>
 				</div>
 		  	</ion-content>
 	  	</ion-tab>
@@ -34,20 +34,20 @@
 				  </div>
 				</div>
 			  	<div class="list card" ng-repeat="show in shows | watchList | limitTo: 12">
-				  	<div class="item item-body item-img">
-			    		<img src="{{show.poster}}"/>
-						<div class="item item-body item-detail">
-							<p class="title">
-				            	<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}"><b>{{show.seriesName}}</b></a>
-				          	</p>
-				          	<p class="info"><b>{{show.network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
-				          	<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{show.firstAired | date: 'yyyy'}}</span></p>
-				          	<div class="cap">
-			           	 		<span ng-repeat="genre in show.genre"><b>{{genre}}</b></span>
-				          	</div>
-						</div>
-			 	 	</div>
-				</div>
+						<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}">	
+				  		<div class="item item-body item-img">
+			    			<img src="{{show.poster}}"/>
+								<div class="item item-body item-detail">
+									<p class="title"><b>{{show.seriesName}}</b></p>
+									<p class="info"><b>{{show.network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
+									<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{show.firstAired | date: 'yyyy'}}</span></p>
+									<div class="cap">
+										<span ng-repeat="genre in show.genre"><b>{{genre}}</b></span>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
 		  	</ion-content>
 		</ion-tab>
 
@@ -59,20 +59,20 @@
 				  </div>
 				</div>
 			  	<div class="list card" ng-repeat="show in shows | favorites">
-				  <div class="item item-body item-img">
-			    		<img src="{{show.poster}}"/>
-						<div class="item item-body item-detail">
-							<p class="title">
-				            	<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}"><b>{{show.seriesName}}</b></a>
-				          	</p>
-				          	<p class="info"><b>{{show.network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
-				          	<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{show.firstAired | date: 'yyyy'}}</span></p>
-				          	<div class="cap">
-			           	 		<span ng-repeat="genre in show.genre"><b>{{genre}}</b></span>
-				          	</div>
-						</div>
-			 	 	</div>
-				</div>
+						<a class="title" ui-sref="app.series({seriesId: show._id})" title="{{show.seriesName}}">
+				  		<div class="item item-body item-img">
+			    			<img src="{{show.poster}}"/>
+								<div class="item item-body item-detail">
+									<p class="title"><b>{{show.seriesName}}</b></p>
+									<p class="info"><b>{{show.network}}</b> <span class="rating"><i class="icon-left ion-ios-star star" aria-hidden="true"></i>  {{show.rating}}</span></p>
+									<p class="info"><span class="date"><i class="icon-left ion-ios-calendar calender" aria-hidden="true"></i>  {{show.firstAired | date: 'yyyy'}}</span></p>
+									<div class="cap">
+										<span ng-repeat="genre in show.genre"><b>{{genre}}</b></span>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
 		  	</ion-content>
 		</ion-tab>
 	</ion-tabs>
