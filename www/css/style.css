@@ -8,6 +8,10 @@ body {
   padding-top: 40px !important;
 }
 
+div.list.card.ep-card.series-card {
+  margin-top: 0 !important;
+}
+
 ion-spinner {
   display: flex;
   justify-content: center;
