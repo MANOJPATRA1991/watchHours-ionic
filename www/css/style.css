@@ -4,6 +4,15 @@ body {
     font-size: 75%;
 }
 
+.scroll {
+  padding-top: 40px !important;
+}
+
+ion-spinner {
+  display: flex;
+  justify-content: center;
+}
+
 .episode-info {
   color: black;
 }
@@ -197,6 +206,7 @@ div.list.card {
 
 .cap span, .scap span{
   margin: 10px;
+  margin-left: 0;
   padding-right: 3px;
   word-wrap: normal;
   display: inline-block;
@@ -349,10 +359,6 @@ i.icon{
 
 .episode-card {
   bottom: 30px;
-}
-
-.show-card {
-  margin-top: 60px;
 }
 
 .slide-zoom{

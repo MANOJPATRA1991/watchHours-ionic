@@ -2,7 +2,7 @@
   <ion-header-bar>
     <h1 class="title">Login</h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+      <button class="button button-assertive" ng-click="closeLogin()">Close</button>
     </div>
   </ion-header-bar>
   <ion-content>
@@ -16,13 +16,14 @@
           <span class="input-label">Password</span>
           <input type="password" placeholder="Password" ng-model="loginData.password">
         </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
+        <label class="item"> 
+          <ion-spinner ng-if="showSpinner" name="bubbles"></ion-spinner>
+          <button ng-if="!showSpinner" class="button button-block button-positive" type="submit">Log in</button>
         </label>
       </div>
     </form>
 
-    <label class="item">
+    <label ng-if="!showSpinner" class="item">
       <button class="button button-block button-positive" type="submit" ng-click="facebookLogin()">Facebook</button>
     </label>
   </ion-content>

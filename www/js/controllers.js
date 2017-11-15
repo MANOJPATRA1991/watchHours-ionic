@@ -11,7 +11,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
     $location, $localStorage, HomeServices,
     AuthFactory, $ionicModal, $ionicSideMenuDelegate,
     $ionicPopup, $timeout, $cordovaInAppBrowser, $ionicLoading) {
-    console.log("Hello");
 
     // Form data for the login modal
     $scope.loginData = $localStorage.getObject('userinfo','{}');
@@ -32,6 +31,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
 
     // Triggered in the login modal to close it
     $scope.closeLogin = function () {
+        $scope.showSpinner = false;
         $scope.modal.hide();
     };
 
@@ -42,10 +42,12 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
 
     // Perform the login action when the user submits the login form
     $scope.doLogin = function () {
-        console.log('Doing login', $scope.loginData);
-        $localStorage.storeObject('userinfo',$scope.loginData);
+        $scope.showSpinner = true;
         AuthFactory.login($scope.loginData);
-        $scope.closeLogin();
+        $rootScope.$on('login:Successful', () => {
+            $localStorage.storeObject('userinfo',$scope.loginData);
+            $scope.closeLogin();
+        });
     };
 
     // Perform logout
@@ -68,6 +70,8 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
           toolbar: 'no'
         };
 
+        $scope.showSpinner = true;
+
         $cordovaInAppBrowser.open('https://watch-hours.herokuapp.com/users/facebook', '_blank', options);
     };
 
@@ -75,6 +79,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
     $rootScope.$on('$cordovaInAppBrowser:loadstop', function(e, event){
         if(event.url.indexOf("https://watch-hours.herokuapp.com") > -1){
             var params = decodeURI(event.url.substring("?"));
+            $cordovaInAppBrowser.close();
             var res = params.split("&");
             AuthFactory.storeCredentials({
                 username: res[1].split("=")[1],
@@ -83,9 +88,8 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
                 isVerified: res[3].split("=")[1]
             });
             $rootScope.$broadcast('login:Successful');
-            $cordovaInAppBrowser.close();
-            $scope.closeLogin();
         }
+        $scope.closeLogin();
     });
 
     // Set root variables if user is authenticated
@@ -109,12 +113,9 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
     $rootScope.$on('login:Unsuccessful', function(){
        var alertPopup = $ionicPopup.alert({
          title: 'Login Error',
-         template: 'Check username or password'
+         template: 'Check Internet Connection. If already connected, check username and password.'
        });
-
-       alertPopup.then(function(res) {
-         console.log('Wrong username/password');
-       });
+       $scope.showSpinner = false;
     });
 
     // Create the login modal that we will use later
@@ -126,6 +127,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
 
     // Triggered in the login modal to close it
     $scope.closeRegister = function () {
+        $scope.showSpinner = false;
         $scope.registerform.hide();
     };
 
@@ -136,24 +138,24 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
 
     // Perform the login action when the user submits the login form
     $scope.doRegister = function() {
-        if($scope.loginData.password === $scope.loginData.repeat_password){
-            console.log('Doing registration', $scope.loginData);
+        $scope.showSpinner = true;
+        if($scope.loginData.password !== "" && $scope.loginData.password === $scope.loginData.repeat_password){
             AuthFactory.register($scope.loginData);
         }else{
             var alertPopup = $ionicPopup.alert({
              title: 'Password mismatch',
              template: 'Passwords don\'t match'
-           });
-
-           alertPopup.then(function(res) {
-             console.log('Wrong username/password');
-           });
+            });
+            $scope.showSpinner = false;
         }
-        // Simulate a login delay. Remove this and replace with your login
-        // code if using a login system
-        $timeout(function () {
+
+        $rootScope.$on('registration:Successful', () => {
             $scope.closeRegister();
-        }, 1000);
+        });
+
+        $rootScope.$on('registration:Unsuccessful', () => {
+            $scope.showSpinner = false;
+        });
     };
 
     // On successful registration
@@ -167,14 +169,17 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
 
     // On unsuccessful registration
     $rootScope.$on('registration:Unsuccessful', function(){
-       var alertPopup = $ionicPopup.alert({
-         title: 'Sign up Error',
-         template: 'Try again!'
-       });
-
-       alertPopup.then(function(res) {
-         console.log('Wrong username/password');
-       });
+        if($rootScope.registrationError === 500){
+            var alertPopup = $ionicPopup.alert({
+              title: 'Sign up Error',
+              template: 'User with email already exists!'
+            });
+        }else{
+            var alertPopup = $ionicPopup.alert({
+                title: 'Sign up Error',
+                template: 'Try again! Check internet connection!'
+            });
+        }
     });
 
     $scope.toggleLeft = function() {
@@ -182,12 +187,13 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
       };
 }])
 
-.controller('HomeCtrl', ['$scope', 'Shows', 'Episodes', 'HomeServices', function($scope, Shows, Episodes, HomeServices){
+.controller('HomeCtrl', ['$scope', 'Shows', 'Episodes', 'HomeServices', '$rootScope',
+function($scope, Shows, Episodes, HomeServices, $rootScope){
         $scope.todaysepisodes = [];
         $scope.tomorrowsepisodes = [];
         $scope.thisweeksepisodes = [];
         $scope.shows = [];
-
+        
         Shows.query({}, function(resp){
             // Sort shows by rating
             $scope.shows = resp.sort(HomeServices.compare);
@@ -278,7 +284,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         });
 
         PostersCount.query({seriesId: $stateParams.seriesId}, function(count){
-            console.log(count.result);
             $scope.count = count.result / 5;
             for(var i = 0; i < $scope.count; i++) {
                 Posters.query({seriesId: $stateParams.seriesId, skip: i}, function(posters){
@@ -292,7 +297,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         // Get Series details
         Series.query({ id: $stateParams.seriesId }, function(show) {
             $scope.show = show;
-            console.log(show.firstAired);
 
             // check if user has marked a show as his favorite
             if($scope.show.favorites.indexOf($rootScope.uid) !== -1){
@@ -326,11 +330,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
                                 id: 1,
                                 title: "Removed from Subscriptions",
                                 text: $scope.show.seriesName
-                            }).then(function () {
-                                console.log('Removed from subscriptions '+$scope.show.seriesName);
-                            },
-                            function () {
-                                console.log('Failed to remove from subscriptions ');
                             });
 
                             $cordovaToast
@@ -354,11 +353,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
                                 id: 1,
                                 title: "Added to Subscriptions",
                                 text: $scope.show.seriesName
-                            }).then(function () {
-                                console.log('Added to subscriptions '+$scope.show.seriesName);
-                            },
-                            function () {
-                                console.log('Failed to add to subscriptions ');
                             });
 
                             $cordovaToast
@@ -376,10 +370,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
                 var alertPopup = $ionicPopup.alert({
                     title: 'Login In Required',
                     template: 'Log in to subscribe'
-                });
-
-               alertPopup.then(function(res) {
-                    console.log('Login In Required');
                 });
             }
         };
@@ -400,12 +390,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
                                 id: 1,
                                 title: "Removed from Watch List",
                                 text: $scope.show.seriesName
-                            }).then(function () {
-                                console.log('Removed from Watch List '+$scope.show.seriesName);
-                            },
-                            function () {
-                                console.log('Failed to remove from watchlist ');
-                            });
+                            })
 
                             $cordovaToast
                               .show('Removed from Watch List '+$scope.show.seriesName, 'long', 'center')
@@ -430,12 +415,7 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
                                 id: 1,
                                 title: "Added to Watch List",
                                 text: $scope.show.seriesName
-                            }).then(function () {
-                                console.log('Added to Watch List '+$scope.show.seriesName);
-                            },
-                            function () {
-                                console.log('Failed to add to watchlist ');
-                            });
+                            })
 
                             $cordovaToast
                               .show('Added to Watch List '+$scope.show.seriesName, 'long', 'center')
@@ -452,10 +432,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
                 var alertPopup = $ionicPopup.alert({
                     title: 'Login In Required',
                     template: 'Log in to add to watchlist'
-                });
-
-               alertPopup.then(function(res) {
-                    console.log('Login In Required');
                 });
             }
         };
@@ -476,11 +452,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
                                 id: 1,
                                 title: "Removed from Favorites",
                                 text: $scope.show.seriesName
-                            }).then(function () {
-                                console.log('Removed from favorites '+$scope.show.seriesName);
-                            },
-                            function () {
-                                console.log('Failed to remove from Favorites ');
                             });
 
                             $cordovaToast
@@ -504,11 +475,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
                                 id: 1,
                                 title: "Added to Favorites",
                                 text: $scope.show.seriesName
-                            }).then(function () {
-                                console.log('Added to Favorites '+$scope.show.seriesName);
-                            },
-                            function () {
-                                console.log('Failed to add to Favorites ');
                             });
 
                             $cordovaToast
@@ -527,10 +493,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
                     title: 'Login In Required',
                     template: 'Log in to add to favorites'
                 });
-
-               alertPopup.then(function(res) {
-                    console.log('Login In Required');
-                });
             }
         };
 
@@ -547,7 +509,10 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
             temp = [];
             for(let i = 0; i < $scope.episodes.length; i++){
                 if($scope.episodes[i].airedSeason !== 0){
-                    temp.push($scope.episodes[i].firstAired.substr(0,4));
+                    if($scope.episodes[i].firstAired !== null){
+                        let year = $scope.episodes[i].firstAired.toString().substr(0,4);
+                        temp.push(year);
+                    }
                 }
             }
             $scope.firstAired = temp.unique();
@@ -558,7 +523,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
                 if(date.getTime() > Date.now())
                     if($scope.isSubscribed){
                     $ionicPlatform.ready(function () {
-
                         $cordovaLocalNotification.schedule({
                             id: 1,
                             title: "Show airs on " + date,
@@ -591,10 +555,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         $scope.$on("$ionicSlides.sliderInitialized", function(event, data){
           // data.slider is the instance of Swiper
           $scope.slider = data.slider;
-        });
-
-        $scope.$on("$ionicSlides.slideChangeStart", function(event, data){
-          console.log('Slide change is beginning');
         });
 
         $scope.$on("$ionicSlides.slideChangeEnd", function(event, data){

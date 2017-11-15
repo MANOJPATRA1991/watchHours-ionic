@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'starter.filters'])
 
-.run(function($ionicPlatform, $rootScope, $ionicLoading, $cordovaSplashscreen, $timeout) {
+.run(function($ionicPlatform, $state, $rootScope, $ionicLoading, $cordovaSplashscreen, $timeout) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -35,12 +35,10 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
   });
 
   $rootScope.$on('$stateChangeStart', function () {
-      console.log('Loading ...');
       $rootScope.$broadcast('loading:show');
   });
 
   $rootScope.$on('$stateChangeSuccess', function () {
-      console.log('done');
       $rootScope.$broadcast('loading:hide');
   });
 
@@ -72,7 +70,24 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
   };
 
   document.addEventListener("deviceready", function () {
-    $cordovaInAppBrowserProvider.setDefaultOptions(defaultOptions)
+    $cordovaInAppBrowserProvider.setDefaultOptions(defaultOptions);
+
+    var type = $cordovaNetwork.getNetwork();
+    
+    var isOnline = $cordovaNetwork.isOnline();
+
+    var isOffline = $cordovaNetwork.isOffline();
+
+
+    // listen for Online event
+    $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+      $tate.reload();
+    });
+
+    // listen for Offline event
+    $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+      $rootScope.$broadcast('offline');
+    });
   }, false);
 
   $ionicConfigProvider.tabs.position('bottom');

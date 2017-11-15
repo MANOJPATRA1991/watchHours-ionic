@@ -301,7 +301,6 @@ angular.module('starter.services', ['ngResource'])
             },
             function(err) {
                 isAuthenticated = false;
-                error = err.data.err.message;
                 $rootScope.$broadcast('login:Unsuccessful');
             }
         );
@@ -333,8 +332,11 @@ angular.module('starter.services', ['ngResource'])
 
                 $rootScope.$broadcast('registration:Successful');
             },
-            function(response){
-                console.log("Registration Unsuccessful!");
+            function(err){
+                $rootScope.$broadcast('registration:Unsuccessful');
+                if(err.status === 500) {
+                    $rootScope.registrationError = 500;
+                }
             }
         );
     };
