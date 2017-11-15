@@ -45,6 +45,8 @@ This is the Ionic version of the [watchours](https://watch-hours.herokuapp.com/)
     8. de.appplant.cordova.plugin.local-notification 0.8.5 "LocalNotification"
   
     9. ionic-plugin-keyboard 2.2.1 "Keyboard"
+    
+    10. cordova-plugin-inappbrowser ""In-app browser
 
 6. As this project is specifically built for android, I recommend running it on an Android device for best experience. However, the project can be built and run on an iOS device if you choose to do so.
 7. To build for android, `ionic build android`.
