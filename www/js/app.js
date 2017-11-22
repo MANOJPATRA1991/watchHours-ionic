@@ -72,22 +72,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
   document.addEventListener("deviceready", function () {
     $cordovaInAppBrowserProvider.setDefaultOptions(defaultOptions);
 
-    var type = $cordovaNetwork.getNetwork();
-    
-    var isOnline = $cordovaNetwork.isOnline();
-
-    var isOffline = $cordovaNetwork.isOffline();
-
-
-    // listen for Online event
-    $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
-      $tate.reload();
-    });
-
-    // listen for Offline event
-    $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
-      $rootScope.$broadcast('offline');
-    });
   }, false);
 
   $ionicConfigProvider.tabs.position('bottom');

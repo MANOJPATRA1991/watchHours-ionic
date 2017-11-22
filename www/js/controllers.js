@@ -58,7 +58,6 @@ angular.module('starter.controllers', ['ngResource', 'ngCordova'])
         $rootScope.admin = false;
         $rootScope.isVerified = false;
         $rootScope.uid = '';
-        $state.go("app.home");
     };
 
     // Perform facebook login
@@ -336,10 +335,8 @@ function($scope, Shows, Episodes, HomeServices, $rootScope){
                               .show('Removed from Subscriptions '+$scope.show.seriesName, 'long', 'center')
                               .then(function (success) {
                                   // success
-                                  console.log("T");
                               }, function (error) {
                                   // error
-                                  console.log("T");
                             });
                         });
                         $state.go("app.series",{},{reload: "app.series"});
@@ -368,6 +365,8 @@ function($scope, Shows, Episodes, HomeServices, $rootScope){
                             });
                         });
                         $state.go("app.series",{},{reload: "app.series"});
+                        var now = new Date().getTime();
+                        var _10SecondsFromNow = new Date(now + 10 * 1000);
                     });
                 }
             }else{
@@ -397,13 +396,11 @@ function($scope, Shows, Episodes, HomeServices, $rootScope){
                             })
 
                             $cordovaToast
-                              .show('Removed from Watch List '+$scope.show.seriesName, 'long', 'center')
-                              .then(function (success) {
-                                  // success
-                                  console.log("T");
-                              }, function (error) {
-                                  // error
-                                  console.log("T");
+                                .show('Removed from Watch List '+$scope.show.seriesName, 'long', 'center')
+                                .then(function (success) {
+                                    // success
+                                }, function (error) {
+                                    // error
                             });
                         });
 
@@ -484,7 +481,7 @@ function($scope, Shows, Episodes, HomeServices, $rootScope){
                             });
 
                             $cordovaToast
-                              .show('Added to Favorites '+$scope.show.seriesName, 'long', 'center')
+                              .show('Added to Favorites '+ $scope.show.seriesName, 'long', 'center')
                               .then(function (success) {
                                   // success
                               }, function (error) {
