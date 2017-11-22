@@ -531,9 +531,6 @@ function($scope, Shows, Episodes, HomeServices, $rootScope){
                             title: "Show airs on " + date,
                             text: $scope.show.seriesName + ": " + $scope.episodes[i].episodeName,
                             at: new Date(date.getTime() - 3600*1000)
-                        }).then(function () {
-                        },
-                        function () {
                         });
                     });
                 }
