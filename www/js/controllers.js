@@ -336,8 +336,10 @@ function($scope, Shows, Episodes, HomeServices, $rootScope){
                               .show('Removed from Subscriptions '+$scope.show.seriesName, 'long', 'center')
                               .then(function (success) {
                                   // success
+                                  console.log("T");
                               }, function (error) {
                                   // error
+                                  console.log("T");
                             });
                         });
                         $state.go("app.series",{},{reload: "app.series"});
@@ -359,8 +361,10 @@ function($scope, Shows, Episodes, HomeServices, $rootScope){
                               .show('Added to Subscriptions '+$scope.show.seriesName, 'long', 'center')
                               .then(function (success) {
                                   // success
+                                  console.log("T");
                               }, function (error) {
                                   // error
+                                  console.log("T");
                             });
                         });
                         $state.go("app.series",{},{reload: "app.series"});
@@ -396,8 +400,10 @@ function($scope, Shows, Episodes, HomeServices, $rootScope){
                               .show('Removed from Watch List '+$scope.show.seriesName, 'long', 'center')
                               .then(function (success) {
                                   // success
+                                  console.log("T");
                               }, function (error) {
                                   // error
+                                  console.log("T");
                             });
                         });
 
